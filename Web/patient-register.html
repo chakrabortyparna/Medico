@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f6ff;
+        }
+
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0b5ed7;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .radio-group {
+            margin-top: 8px;
+        }
+
+        .radio-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #157347;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: #0b5ed7;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        // Auto-generate Patient ID
+        function generatePatientId() {
+            const pid = "PAT" + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById("patient_id").value = pid;
+        }
+
+        // Medical history toggle
+        function toggleMedicalHistory(value) {
+            const box = document.getElementById("historyBox");
+            box.style.display = (value === "Yes") ? "block" : "none";
+        }
+
+        window.onload = generatePatientId;
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Patient Registration</h2>
+
+    <form action="patientregister" method="POST">
+
+        <!-- Patient ID (Auto Generated) -->
+        <label>Patient ID</label>
+        <input type="text" name="patient_id" id="patient_id" readonly>
+
+        <label>Patient Name</label>
+        <input type="text" name="name" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Address</label>
+        <input type="text" name="address" required>
+
+        <label>Date of Birth</label>
+        <input type="date" name="dob">
+
+        <label>Medical History</label>
+        <div class="radio-group">
+            <input type="radio" name="history_option" value="Yes"
+                   onclick="toggleMedicalHistory('Yes')"> Yes
+            <input type="radio" name="history_option" value="No"
+                   onclick="toggleMedicalHistory('No')"> No
+        </div>
+
+        <div id="historyBox" style="display:none;">
+            <label>If Yes, what type of check-up you have done from our clinic?</label>
+            <textarea name="medical_history"
+                placeholder="Eg: Blood Test, X-Ray, Diabetes Checkup"></textarea>
+        </div>
+
+        <label>Phone Number</label>
+        <input type="text" name="phone" required>
+
+        <label>Gender</label>
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+        Already registered?
+        <a href="patient-login.html">Login here</a>
+    </div>
+</div>
+
+</body>
+</html>

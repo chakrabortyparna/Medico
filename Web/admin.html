@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+}
+/* ===== LOGIN POPUP ===== */
+#loginOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #0b5ed7;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #0b5ed7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-box button:hover {
+    background: #063a8f;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0b5ed7, #063a8f);
+    position: fixed;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* MAIN CONTENT */
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+.welcome-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.welcome-box h1 {
+    margin: 0;
+}
+
+.welcome-box p {
+    margin-top: 8px;
+    color: #666;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(11,94,215,0.3);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0b5ed7;
+}
+
+.card button {
+    margin-top: 15px;
+    padding: 10px 22px;
+    border: none;
+    background: #2e5bff;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #1f45d8;
+}
+</style>
+</head>
+
+<body>
+<!-- ===== LOGIN POPUP ===== -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Admin ID">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <div class="error" id="errorMsg">Invalid Admin ID or Password</div>
+    </div>
+</div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="admin.html">Dashboard</a>
+    <a href="landing.html">Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <div class="welcome-box">
+        <h1>Welcome, Admin</h1>
+        <p>Manage doctors, patients & system overview</p>
+    </div>
+
+    <div class="cards">
+
+        <!-- PATIENTS -->
+        <div class="card">
+            <h3>Total Patients</h3>
+            <p>10000+</p>
+            <p>View Records</p>
+            <button onclick="location.href='viewpatient.jsp'">View</button>
+        </div>
+
+        <!-- DOCTORS -->
+        <div class="card">
+            <h3>Total Doctors</h3>
+            <p>200+</p>
+            <p>View Records</p>
+            <button onclick="location.href='viewdoctors.jsp'">View</button>
+        </div>
+
+        <!-- FEEDBACK -->
+        <div class="card">
+            <h3>Feedbacks</h3>
+            <p>Patient Reviews</p>
+            <button onclick="location.href='viewfeedback.jsp'">View</button>
+        </div>
+
+        <!-- COMMISSION -->
+        <div class="card">
+            <h3>Commission</h3>
+            <p>Earnings</p>
+            <button onclick="location.href='commision.jsp'">Details</button>
+        </div>
+
+        <!-- PATIENT HISTORY -->
+        <div class="card">
+            <h3>Feedbacks </h3>
+            <p>Doctor's Reviews</p>
+            <button onclick="location.href='doctorreviews.jsp'">Open</button>
+        </div>
+        <!-- ORDER -->
+        <div class="card">
+            <h3>Pharmacy</h3>
+            <p>3500+</p>
+            <p>View Pharmacy orders</p>
+            <button onclick="location.href='pharmacyorders.jsp'">Orders</button>
+        </div>
+
+        <!-- DOCTOR HISTORY -->
+        <div class="card">
+            <h3>Doctor Pending Appointment</h3>
+            <p>Appointment Records</p>
+            <button onclick="location.href='doctorpending.jsp'">Open</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+function login() {
+    var user = document.getElementById("username").value;
+    var pass = document.getElementById("password").value;
+
+    if (user === "admin" && pass === "admin") {
+        document.getElementById("loginOverlay").style.display = "none";
+    } else {
+        document.getElementById("errorMsg").style.display = "block";
+    }
+}
+</script>
+</body>
+</html>

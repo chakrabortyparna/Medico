@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .registration-container {
+            background-color: #fff;
+            padding: 30px 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 600px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[readonly] {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .login-link a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .row .column {
+            flex: 1;
+            min-width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="registration-container">
+    <h2>Doctor Registration</h2>
+
+    <form method="post" action="doctorregister">
+
+        <label>Doctor ID</label>
+        <input type="text" id="doctorId" name="doctorId" readonly>
+
+        <div class="row">
+            <div class="column">
+                <label>Full Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="column">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="column">
+                <label>Phone</label>
+                <input type="tel" name="phone" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <label>License Number</label>
+                <input type="text" name="license" required>
+            </div>
+            <div class="column">
+                <label>Specialization</label>
+                <input type="text" name="specialisation" required>
+            </div>
+        </div>
+
+        <label>Qualification</label>
+        <input type="text" name="qualification" required>
+
+        <label>Clinic Name</label>
+        <input type="text" name="clinicName" required>
+
+        <label>Fee per Patient</label>
+        <input type="text" name="fees" required>
+
+        <label>Weekly Schedule</label>
+        <input type="text" name="schedule" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+        Already have an account? <a href="doctor-login.html">Login here</a>
+    </div>
+</div>
+
+<!-- JavaScript for Auto Doctor ID -->
+<script>
+    function generateDoctorId() {
+        const year = new Date().getFullYear();
+        const random = Math.floor(10000 + Math.random() * 90000);
+        return "DOC" + year + random;
+    }
+
+    window.onload = function () {
+        document.getElementById("doctorId").value = generateDoctorId();
+    };
+</script>
+
+</body>
+</html>

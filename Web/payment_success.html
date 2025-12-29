@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Success</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f0f2f5;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.card{
+    background:#fff;
+    width:360px;
+    padding:30px 25px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+/* SVG Tick Animation */
+.checkmark{
+    width:90px;
+    height:90px;
+    display:block;
+    margin:0 auto 20px;
+}
+
+.checkmark circle{
+    stroke:#28a745;
+    stroke-width:5;
+    fill:none;
+    stroke-dasharray:157;
+    stroke-dashoffset:157;
+    animation:circle 0.6s ease forwards;
+}
+
+.checkmark path{
+    stroke:#28a745;
+    stroke-width:5;
+    fill:none;
+    stroke-dasharray:48;
+    stroke-dashoffset:48;
+    animation:check 0.3s ease forwards;
+    animation-delay:0.6s;
+}
+
+/* Animations */
+@keyframes circle{
+    to{stroke-dashoffset:0}
+}
+@keyframes check{
+    to{stroke-dashoffset:0}
+}
+
+/* Success Text */
+.success-text{
+    font-size:22px;
+    font-weight:bold;
+    color:#28a745;
+    margin-bottom:25px;
+    animation:fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(15px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* Buttons */
+.next-btn{
+    width:100%;
+    padding:12px;
+    background:#0b5ed7;
+    border:none;
+    border-radius:6px;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+.next-btn:hover{
+    background:#094db1;
+}
+
+.try-again{
+    display:block;
+    margin-top:14px;
+    color:#6c757d;
+    text-decoration:none;
+    font-size:14px;
+}
+.try-again:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- Animated Tick -->
+<svg class="checkmark" viewBox="0 0 52 52">
+    <circle cx="26" cy="26" r="25"/>
+    <path d="M14 27 L22 35 L38 18"/>
+</svg>
+
+<div class="success-text">Payment Successfully Done</div>
+
+<button class="next-btn" onclick="location.href='patientdashboard.jsp'">
+    Next
+</button>
+
+<a href="javascript:history.back()" class="try-again">
+    Try Again
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Online Medic System</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f9ff;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+header{
+    background:#007bff;
+    color:white;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h2{margin:0;}
+
+nav a{
+    color:white;
+    margin-left:18px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#ffeb3b;
+    text-decoration:underline;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    background:white;
+}
+
+.hero h1{color:#007bff; font-size: 2.5rem;}
+
+.hero p{
+    max-width:800px;
+    margin:15px auto;
+    line-height:1.6;
+    font-size: 1.1rem;
+}
+
+/* BUTTON */
+.btn{
+    display:inline-block;
+    margin: 10px;
+    padding:12px 28px;
+    background:linear-gradient(135deg,#007bff,#00c6ff);
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:bold;
+    box-shadow:0 6px 15px rgba(0,123,255,0.4);
+    transition:all 0.35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px rgba(0,123,255,0.6);
+}
+
+/* SERVICES */
+.services{
+    display:flex;
+    justify-content:space-around;
+    background:#eaf2ff;
+    padding:50px 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card{
+    background:white;
+    width:200px;
+    padding:25px;
+    text-align:center;
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+    transition:all 0.4s ease;
+    font-weight: bold;
+    color: #333;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 10px 20px rgba(0,123,255,0.3);
+}
+
+/* COMMON SECTION */
+.section{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.section h2{
+    color:#007bff;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+/* ✨ GLITTER BOX GRID ✨ */
+.glitter-grid{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.glitter-box {
+    width: 250px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    cursor: default;
+    
+    /* Animated Gradient Background */
+    background: linear-gradient(-45deg, #007bff, #00c6ff, #00ff88, #7000ff);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite, glowPulse 3s infinite alternate;
+    
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+/* Glitter background animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Pulse/Glow animation */
+@keyframes glowPulse {
+    from { box-shadow: 0 0 10px rgba(0, 123, 255, 0.4); }
+    to { box-shadow: 0 0 25px rgba(0, 198, 255, 0.8), 0 0 40px rgba(0, 255, 136, 0.4); }
+}
+
+.glitter-box:hover {
+    transform: scale(1.1) rotate(2deg);
+    z-index: 10;
+}
+
+/* WHY CHOOSE */
+.why{
+    display:flex;
+    justify-content:center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.why div{
+    width: 200px;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    font-weight: bold;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.1);
+    border-bottom: 4px solid #007bff;
+}
+
+/* FOOTER */
+footer{
+    background:#333;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top: 50px;
+}
+footer a {
+    text-decoration: none;
+    transition: transform 0.3s, color 0.3s;
+}
+
+footer a:hover {
+    transform: scale(1.2);
+    color: #00c6ff;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Medico - Your Health Our Priority</h2>
+<nav>
+<a href="landing.html">Home</a>
+<a href="patient-login.html">Login</a>
+<a href="patient-register.html">New Register</a>
+<a href="doctor-register.html">Doctor Register</a>
+</nav>
+</header>
+
+<div class="hero">
+<h1>Medico</h1>
+<h2>Your Health, Our Priority</h2>
+<p>
+A dynamic web-based healthcare management platform that integrates
+medical services with digital technology. Experience healthcare at your fingertips.
+</p>
+<a href="admin.html" class="btn">Admin Portal</a>
+<a href="pharmacy.html" class="btn">Pharmacy Store</a>
+</div>
+
+<div class="services">
+<div class="card">Doctor Consultation</div>
+<div class="card">Order Medicine</div>
+<div class="card">Upload Prescription</div>
+<div class="card">Emergency Support</div>
+</div>
+
+<div class="section" style="background:#eaf2ff;">
+<h2> Key Features </h2>
+<div class="glitter-grid">
+<div class="glitter-box">Online Consultation</div>
+<div class="glitter-box">Secure Digital Prescriptions</div>
+<div class="glitter-box">Fast Medicine Ordering</div>
+<div class="glitter-box">Patient & Doctor Login</div>
+<div class="glitter-box">Appointment Management</div>
+<div class="glitter-box">Data Security & Privacy</div>
+</div>
+</div>
+
+<div class="section">
+<h2>Our Benefits </h2>
+<div class="glitter-grid">
+<div class="glitter-box">Save Time & Hospital Visits</div>
+<div class="glitter-box">Healthcare from Anywhere</div>
+<div class="glitter-box">Quick Appointments</div>
+<div class="glitter-box">Better Doctor Interaction</div>
+<div class="glitter-box">Affordable Medical Services</div>
+<div class="glitter-box">Easy & User Friendly</div>
+</div>
+</div>
+
+<div class="section" style="background:#eaf2ff;">
+<h2>Why Choose Us</h2>
+<div class="why">
+<div>24×7 Online Support</div>
+<div>Certified Doctors</div>
+<div>Easy Appointments</div>
+<div>Secure System</div>
+</div>
+</div>
+
+<footer>
+    © 2025 MEDICO<br>
+    <p style="font-size: 0.9rem; color: #bbb; margin-top: 10px;">
+        Contact: 9876543210 | Mail: medico@gmail.com
+    </p>
+    <div style="margin:15px 0;">
+        <a href="facebook.com" style="color:white;margin:0 12px;font-size:22px;">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a href="youtube.com" style="color:white;margin:0 12px;font-size:22px;">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="instagram.com" style="color:white;margin:0 12px;font-size:22px;">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:medico@gmail.com" style="color:white;margin:0 12px;font-size:22px;">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+
+    
+</footer>
+
+</body>
+</html>

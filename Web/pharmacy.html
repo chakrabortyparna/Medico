@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Online Pharmacy</title>
+
+<style>
+body{font-family:Arial;background:#f2f4f7;margin:0;padding-bottom:180px}
+header{background:#0b5ed7;color:#fff;padding:16px;text-align:center}
+.back-btn{padding:10px;background:#fff}
+.back-btn button{padding:8px 16px;background:#6c757d;color:#fff;border:none;border-radius:20px}
+.search-box{background:#fff;padding:12px;position:sticky;top:0;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.search-box input{width:100%;padding:12px}
+.container{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.card{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.15);transition:.3s}
+.card:hover{transform:scale(1.06)}
+.price{color:#198754;font-weight:bold}
+.card button{padding:8px 14px;background:#198754;color:#fff;border:none;border-radius:20px}
+.cart{position:fixed;bottom:0;width:100%;background:#fff;padding:14px;box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+.order-btn{width:100%;padding:12px;background:#0b5ed7;color:#fff;border:none}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center}
+.modal-content{background:#fff;padding:20px;width:90%;max-width:420px}
+.modal-content input,select,textarea{width:100%;padding:10px;margin-top:6px}
+.more-btn{text-align:center;padding:20px}
+.more-btn button{padding:12px 25px;border:none;border-radius:25px;background:#0b5ed7;color:#fff}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Online Pharmacy</h2>
+<p>Medicines & Healthcare Essentials</p>
+</header>
+
+<div class="back-btn">
+<button onclick="history.back()">← Back</button>
+</div>
+
+<div class="search-box">
+<input id="search" placeholder="Search products..." onkeyup="searchProduct()">
+</div>
+
+<div class="container" id="productList"></div>
+
+<div class="more-btn">
+<button onclick="loadMore()">More Items</button>
+</div>
+
+<div class="cart">
+<h3>Cart</h3>
+<div id="cartItems">No items added</div>
+<div id="total">Total: 0</div>
+<button class="order-btn" onclick="openOrder()">Proceed to Order</button>
+</div>
+
+<!-- ORDER FORM POPUP -->
+<div class="modal" id="orderModal">
+<div class="modal-content">
+
+<h3>Order Details</h3>
+<p><b>Order ID:</b> <span id="orderId"></span></p>
+<p><b>Date:</b> <span id="orderDate"></span></p>
+
+<form action="orderplaced" method="post">
+<input type="hidden" name="orderId" id="formOrderId">
+<input type="text" name="patientId" id="pid" placeholder="Patient ID" required>
+<input type="text" name="patientName" id="pname" placeholder="Patient Name" required>
+<input type="text" name="address" id="address" placeholder="Address" required>
+<input type="text" name="phone" id="phone" placeholder="Phone" required>
+
+<h4>Items</h4>
+<textarea name="items" id="orderItems" readonly style="height:100px;"></textarea>
+
+<p><b>Total Cost:</b><span id="orderTotal"></span></p>
+<input type="hidden" name="totalCost" id="formTotalCost">
+
+<select name="paymentMode" id="payment" required>
+<option>Cash on Delivery</option>
+<option>UPI</option>
+<option>Card</option>
+</select>
+
+<div style="display:flex;gap:10px;margin-top:10px">
+<button type="submit" style="flex:1;background:#198754;color:#fff;border:none;padding:10px">Place Order</button>
+<button type="button" onclick="closeOrder()" style="flex:1;background:#6c757d;color:#fff;border:none;padding:10px">Back</button>
+</div>
+</form>
+
+</div>
+</div>
+
+<script>
+let products=[
+{name:"Paracetamol Tablet",price:50},{name:"Ibuprofen Tablet",price:60},{name:"Vitamin C Tablet",price:40},
+{name:"Vitamin D Capsule",price:70},{name:"Calcium Tablet",price:55},{name:"Cough Syrup",price:80},
+{name:"Antacid Tablet",price:45},{name:"ORS Sachet",price:20},{name:"Eye Drops",price:90},{name:"Ear Drops",price:85},
+{name:"Baby Diapers",price:300},{name:"Baby Lotion",price:150},{name:"Baby Shampoo",price:120},{name:"Baby Oil",price:110},{name:"Baby Powder",price:100},
+{name:"Pregnancy Test Kit",price:200},{name:"BP Monitor",price:1500},{name:"Thermometer",price:250},{name:"Pulse Oximeter",price:900},{name:"Glucometer",price:700},
+{name:"Bandage Roll",price:40},{name:"Cotton Roll",price:35},{name:"First Aid Kit",price:500},{name:"Antiseptic Liquid",price:120},{name:"Pain Relief Spray and Tablets",price:180},
+{name:"Sunscreen SPF 50",price:250},{name:"Moisturizing Lotion",price:220},{name:"Face Wash",price:180},{name:"Anti Acne Cream",price:200},{name:"Anti Dandruff Shampoo",price:210},
+{name:"Muscle Relaxant Gel",price:150},{name:"Joint Pain Tablet",price:100},{name:"Immunity Booster Syrup",price:180},{name:"Herbal Tonic",price:160},{name:"Medical Gloves",price:90}
+];
+
+// repeat to make 200+ products if needed
+products = [...products,...products,...products,...products];
+
+let index=0,limit=20,cart=[],total=0;
+
+function loadMore(){
+let slice=products.slice(index,index+limit);
+index+=limit;
+slice.forEach(p=>{
+productList.innerHTML+=`
+<div class="card">
+<h4>${p.name}</h4>
+<p class="price">₹${p.price}</p>
+<button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+</div>`;
+});
+}
+
+function addToCart(name,price){
+cart.push(name+":"+price);
+total+=price;
+cartItems.innerHTML=cart.join("<br>");
+document.getElementById("total").innerText="Total:"+total;
+}
+
+function searchProduct(){
+let k=search.value.toLowerCase();
+productList.innerHTML="";
+products.filter(p=>p.name.toLowerCase().includes(k)).slice(0,50).forEach(p=>{
+productList.innerHTML+=`
+<div class="card">
+<h4>${p.name}</h4>
+<p class="price">₹${p.price}</p>
+<button onclick="addToCart('${p.name}',${p.price})">Add to Cart</button>
+</div>`;
+});
+}
+
+function generateOrderId(){return "ORD"+Date.now();}
+
+function openOrder(){
+if(cart.length==0){ alert("Cart is empty"); return;}
+let orderIdStr = generateOrderId();
+orderId.innerText = orderIdStr;
+orderDate.innerText = new Date().toLocaleString();
+orderItems.value = cart.join("\n");
+orderTotal.innerText = total;
+document.getElementById("formOrderId").value = orderIdStr;
+document.getElementById("formTotalCost").value = total;
+orderModal.style.display="flex";
+}
+
+function closeOrder(){ orderModal.style.display="none"; }
+
+loadMore();
+</script>
+
+</body>
+</html>
